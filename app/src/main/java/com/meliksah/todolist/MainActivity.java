@@ -16,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
+
     public void displayDialog(Item itemSelected){
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog);

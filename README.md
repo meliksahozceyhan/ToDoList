@@ -1,8 +1,4 @@
 Android Project To-Do App
-Demir Git push deneme
-
-Melikşah Push deneme
-Demir pusht deneme
 
 Create your own custom application icon (5pts)
 
