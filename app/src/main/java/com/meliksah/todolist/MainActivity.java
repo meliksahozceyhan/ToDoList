@@ -3,13 +3,20 @@ package com.meliksah.todolist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    Dialog dialog;
+    Button btnSave,btnCancel;
+    String name="", note="";
+    EditText etName, etNote;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,18 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void displayDialog(Item itemSelected){
+    public void displayDialog(View view){
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog);
-        TextView tvDialogName = dialog.findViewById(R.id.tvDialogItem);
-        ImageView imgDialog = dialog.findViewById(R.id.imgDialogItem);
-        Button btnClose = dialog.findViewById(R.id.btnClose);
-
-        tvDialogName.setText(itemSelected.getName());
-        imgDialog.setImageResource(itemSelected.getId());
+        Button btnClose = dialog.findViewById(R.id.btnSave);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
             }
         });
@@ -38,4 +41,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }

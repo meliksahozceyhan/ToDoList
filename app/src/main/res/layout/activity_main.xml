@@ -36,6 +36,7 @@
         android:layout_height="62dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="109dp"
+        android:onClick="displayDialog"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

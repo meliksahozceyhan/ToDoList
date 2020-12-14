@@ -57,27 +57,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             itemView.imgSocial.setImageResource(item.getId());
 
             //STEP8
-            itemView.parentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((MainActivity)context).displayDialog(item);
-                }
-            });
 
-        }
-        else if(getItemViewType(position) == TYPE_ODD_ITEM){
-            //STEP7
-            MyRecyclerViewOddItemHolder itemView = (MyRecyclerViewOddItemHolder)myRecyclerViewItemHolder;
-            itemView.tvItemName.setText(item.getName());
-            itemView.cbSocial.setText("like");
 
-            //STEP8
-            itemView.parentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((MainActivity)context).displayDialog(item);
-                }
-            });
         }
 
     }
