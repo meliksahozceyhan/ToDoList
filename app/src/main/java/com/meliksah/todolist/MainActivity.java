@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Dialog dialog;
     Button btnSave,btnCancel;
     String name="", note="";
-    EditText etName, etNote;;
+    EditText etName, etNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
     public void displayDialog(View view){
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog);
-        Button btnClose = dialog.findViewById(R.id.btnSave);
-        btnClose.setOnClickListener(new View.OnClickListener() {
+        Button btnSave = dialog.findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                name = etName.getText().toString();
+                note = etNote.getText().toString();
+                //buraya yeni item yaratip arrayliste ekle
+                //Item item = new Item()
                 dialog.dismiss();
             }
         });
