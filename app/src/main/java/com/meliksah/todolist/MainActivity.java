@@ -3,13 +3,10 @@ package com.meliksah.todolist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayDialog(View view){
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog);
+        dialog.setContentView(R.layout.dialog_add);
         Button btnSave = dialog.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

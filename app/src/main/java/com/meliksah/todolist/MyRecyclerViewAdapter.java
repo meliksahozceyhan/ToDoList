@@ -1,9 +1,13 @@
 package com.meliksah.todolist;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,32 +20,22 @@ import java.util.ArrayList;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyRecyclerViewItemHolder> {
     private Context context;
     private ArrayList<Item> recyclerItemValues;
+    Dialog customDialog;
 
 
-    //STEP 1: Define Interface
-    interface  UniversityRecyclerAdapterInterface{
-        //STEP2: Which actions has to be implemented in activities, define corresponding methods for each
-        void displayItem(Item sc);
-    }
-
-    //STEP3: Create a reference from interface type
-    UniversityRecyclerAdapterInterface uniAdapterInterface;
-
+    DatabaseHelper dbHelper;
     public MyRecyclerViewAdapter(Context context, ArrayList<Item> values){
         this.context = context;
         this.recyclerItemValues = values;
-        //STEP 4: convert context to interface.
-        // Here if context is MainActivity which implement SocialRecyclerAdapterInterfce, casting can be done
-        //It means that in the MainActivity   displayItem method is implemented.
-        uniAdapterInterface = (UniversityRecyclerAdapterInterface)context;
+        dbHelper = new DatabaseHelper(context);
     }
 
     @NonNull
     @Override
     public MyRecyclerViewItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflator = LayoutInflater.from(viewGroup.getContext());
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        View itemView = inflator.inflate(R.layout.recycler_item, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.recycler_item, viewGroup, false);
 
         MyRecyclerViewItemHolder mViewHolder = new MyRecyclerViewItemHolder(itemView);
         return mViewHolder;
@@ -50,19 +44,23 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerViewItemHolder myRecyclerViewItemHolder, int i) {
 
-        final Item sm = recyclerItemValues.get(i);
+        final Item item = recyclerItemValues.get(i);
 
-        myRecyclerViewItemHolder.tv.setText(sm.getName());
+        myRecyclerViewItemHolder.tvitemname.setText(item.getName());
+        myRecyclerViewItemHolder.tvitemnote.setText(item.getNote()+" TL");
 
-        myRecyclerViewItemHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+
+       /* myRecyclerViewItemHolder.parentLayout.setOnLongClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //STEP 5: Catch the event over the item, then call displayItem method
-                uniAdapterInterface.displayItem(sm);
+            public void onClick(View v) {
+                displayDialog(item.toString());
+                displayDialog(item.toString());
             }
-        });
-
-
+        });*/
+    }
+    public void refreshMyAdapterAfterDelete(int position){
+        recyclerItemValues.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
@@ -71,12 +69,50 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     class MyRecyclerViewItemHolder extends  RecyclerView.ViewHolder{
-        TextView tv;
-        ImageView img;
+        TextView tvitemname, tvitemnote;
+        ImageView imgitemImage;
         ConstraintLayout parentLayout;
         public MyRecyclerViewItemHolder(@NonNull View itemView) {
             super(itemView);
+            tvitemname = itemView.findViewById(R.id.tvName);
+            tvitemnote = itemView.findViewById(R.id.tvNote);
         }
+    }
+
+
+    public void displayDialog(final String msg, final int pos){
+
+        final TextView tv;
+        Button btnDelete,btnUpdate;
+
+        customDialog = new Dialog(context);
+
+        customDialog.setContentView(R.layout.dialog_add);
+        tv =  customDialog.findViewById(R.id.textView);
+        btnDelete = customDialog.findViewById(R.id.btnDelete);
+        btnUpdate = customDialog.findViewById(R.id.btnUPDATE);
+        tv.setText(msg+"");
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                refreshMyAdapterAfterDelete(pos);
+                customDialog.dismiss();
+            }
+        });
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SecondActivity.class);
+                Bundle b = new Bundle();
+                Item temp = recyclerItemValues.get(pos);
+                b.putParcelable("items",temp);
+                intent.putExtras(b);
+                context.startActivity(intent);
+
+            }
+        });
+        customDialog.show();
     }
 
 }
