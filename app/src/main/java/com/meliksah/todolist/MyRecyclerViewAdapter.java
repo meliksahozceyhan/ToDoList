@@ -100,7 +100,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 customDialog.dismiss();
             }
         });
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        /*btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SecondActivity.class);
@@ -111,7 +111,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 context.startActivity(intent);
 
             }
-        });
+        });*/
         customDialog.show();
     }
 
