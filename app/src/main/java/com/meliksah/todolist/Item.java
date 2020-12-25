@@ -23,38 +23,30 @@ public class Item implements Parcelable {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getNote() {
         return note;
     }
-
     public void setNote(String note) {
         this.note = note;
     }
-
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(note);
     }
-
     @Override
     public int describeContents() {
         return 0;
     }
-
     public static final Creator<Item> CREATOR = new Creator<Item>() {
         @Override
         public Item createFromParcel(Parcel in) {
@@ -66,5 +58,4 @@ public class Item implements Parcelable {
             return new Item[size];
         }
     };
-
 }

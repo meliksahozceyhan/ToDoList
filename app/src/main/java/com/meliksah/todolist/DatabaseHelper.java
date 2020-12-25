@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseHelper extends  SQLiteOpenHelper {
-    public static String DATABASE_NAME="CarDB";
+    public static String DATABASE_NAME="ItemDB";
     public static int DATABASE_VERSION = 1;
 
     SQLiteDatabase db;
