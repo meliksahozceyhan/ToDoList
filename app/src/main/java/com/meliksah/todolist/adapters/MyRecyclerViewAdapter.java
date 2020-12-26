@@ -1,32 +1,37 @@
-package com.meliksah.todolist;
+package com.meliksah.todolist.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.meliksah.todolist.R;
+import com.meliksah.todolist.db.Commons;
+import com.meliksah.todolist.models.ToDoItem;
+import com.meliksah.todolist.models.ToDoList;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
     Context context;
     Button btnSave;
     Dialog dialog;
+    ArrayList<ToDoItem> toDoItems;
+    ToDoList toDoList;
 
-    public MyRecyclerViewAdapter(Context context, List<Item> data) {
+    public MyRecyclerViewAdapter(Context context, ToDoList data) {
         this.context = context;
-        Commons.data=(ArrayList<Item>) data;
+        toDoList = data;
+        toDoItems = data.getToDoItems();
     }
     // Each object of the ViewHolder will be created here
     @NonNull
@@ -41,16 +46,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         //BIND DATA
-        final Item item = Commons.data.get(position);
+        ToDoItem item = Commons.data.get(position);
         holder.name.setText(item.getName());
+
     }
 
     @Override
     public int getItemCount() {
-        return Commons.data.size();
+        return toDoItems.size();
     }
-
-    // How many items exist in the list
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -76,11 +80,5 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         dialog.show();
     }
 
-    public void refreshMyAdapterAfterDelete(int position){
-        ArrayList<Item> nw = Commons.getData();
-        DatabaseHelper tempdb = Commons.getDbhelper();
-        ItemDB.delete(tempdb,""+nw.get(position).getId());
-
-    }
 
 }

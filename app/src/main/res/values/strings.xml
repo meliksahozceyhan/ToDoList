@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">To Do List</string>
+    <string name="activityHeader">Add A New ToDoList</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialogHeader">Add A new ToDo Item</string>
+
 </resources>

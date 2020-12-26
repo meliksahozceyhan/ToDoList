@@ -1,4 +1,4 @@
-package com.meliksah.todolist;
+package com.meliksah.todolist.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseHelper extends  SQLiteOpenHelper {
-    public static String DATABASE_NAME="ItemDB";
+    public static String DATABASE_NAME="ToDoListDB";
     public static int DATABASE_VERSION = 1;
 
     SQLiteDatabase db;
@@ -24,7 +24,7 @@ public class DatabaseHelper extends  SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //onCreate called if database doesn't exist
         try {
-            db.execSQL(ItemDB.CREATE_TABLE_SQL);
+            db.execSQL(ToDoListDB.CREATE_TABLE_SQL);
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -37,7 +37,7 @@ public class DatabaseHelper extends  SQLiteOpenHelper {
         //onUpgrade called when DATABASE_VERSION is changed
         //SQLiteDatabase object used to execute SQL statements
         try {
-            db.execSQL(ItemDB.DROP_TABLE_SQL);
+            db.execSQL(ToDoListDB.DROP_TABLE_SQL);
         }catch (SQLException e){
             e.printStackTrace();
         }
