@@ -15,16 +15,20 @@ import lombok.NoArgsConstructor;
 public class ToDoList implements Parcelable {
     private String name;
     private Integer id;
-    private String createdAt;
     private String note;
+    private String createdAt;
     private ArrayList<ToDoItem> toDoItems;
 
+    public ToDoList(Integer id){
+        this.id = id;
+    }
 
     protected ToDoList(Parcel in) {
         id = in.readInt();
         name = in.readString();
         note = in.readString();
         createdAt = in.readString();
+        toDoItems = in.readArrayList(ToDoItem.class.getClassLoader());
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -32,6 +36,7 @@ public class ToDoList implements Parcelable {
         dest.writeString(name);
         dest.writeString(note);
         dest.writeString(createdAt);
+        dest.writeList(toDoItems);
     }
     public String generateJSON(){
         String jsonStr = "[";

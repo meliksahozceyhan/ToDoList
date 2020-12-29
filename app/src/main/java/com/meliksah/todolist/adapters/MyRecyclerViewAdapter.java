@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.meliksah.todolist.R;
@@ -22,16 +24,23 @@ import com.meliksah.todolist.models.ToDoList;
 import java.util.ArrayList;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
+    public interface MyRecyclerViewInterface{
+        public void displayDialog(int position);
+    }
+
     Context context;
     Button btnSave;
     Dialog dialog;
     ArrayList<ToDoItem> toDoItems;
     ToDoList toDoList;
+    MyRecyclerViewInterface myRecyclerViewInterface;
+
 
     public MyRecyclerViewAdapter(Context context, ToDoList data) {
         this.context = context;
         toDoList = data;
         toDoItems = data.getToDoItems();
+        myRecyclerViewInterface = (MyRecyclerViewInterface) context;
     }
     // Each object of the ViewHolder will be created here
     @NonNull
@@ -44,15 +53,29 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // This method will be called to assign data to each row or cell
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         //BIND DATA
-        ToDoItem item = Commons.data.get(position);
+       final ToDoItem item =toDoItems.get(position);
         holder.name.setText(item.getName());
-
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                item.setIsComplete(isChecked);
+            }
+        });
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRecyclerViewInterface.displayDialog(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
+        if(toDoItems == null){
+            return 0;
+        }
         return toDoItems.size();
     }
 
@@ -61,13 +84,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         TextView name;
         CheckBox checkBox;
-        LinearLayout parentLayout;
+        ConstraintLayout parentLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.tvName);
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
-            parentLayout = (LinearLayout)itemView.findViewById(R.id.itemLayout);
+            name =  itemView.findViewById(R.id.tvName);
+            checkBox =  itemView.findViewById(R.id.checkBox);
+            parentLayout = itemView.findViewById(R.id.itemLayout);
 
         }
     }

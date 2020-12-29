@@ -3,6 +3,11 @@
     <string name="activityHeader">Add A New ToDoList</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="dialogHeader">Add A new ToDo Item</string>
+    <string name="dialogHeader">Add A New ToDo Item</string>
+    <string name="saveNClose">Save And Close</string>
+    <string name="updateDialog">Enter Your Note Here</string>
+    <string name="close">Close</string>
+    <string name="delete">Delete</string>
+    <string name="toDoListName">Enter The Name Of the List</string>
 
 </resources>

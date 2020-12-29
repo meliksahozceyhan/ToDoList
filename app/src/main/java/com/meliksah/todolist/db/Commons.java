@@ -18,7 +18,7 @@ public class Commons {//*******************Kullanırız diye düşündüm gereks
 
     public static Cursor cursor;
 
-    public static int currentItemIndex=0;
+    public static int currentItemId=0;
 
     public static ArrayList<ToDoItem> data;
 
